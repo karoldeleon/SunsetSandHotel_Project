@@ -34,6 +34,8 @@ dejare ambos demo para que pueda verificar las mejores y el progreso de la aplic
 
 Puedes Ingresar al Deploy y testear tu mism@ el proyecto
 
+Puedes Registrarte en la pagina y ver el panel de huesped, y puedes usar estos datos y acceder al panel administrador user : adminsunset@gmail.com password Admin2023@
+
 Version 1.0.0 https://sunsetsandsdev.vercel.app/
 
 Version Mejorada Directamente por mi https://sunset-sand-hotel-project.vercel.app/
@@ -80,6 +82,8 @@ I will leave both demo so that you can verify the best ones and the progress of 
 ## demo
 
 You can enter the Deploy and test the project yourself
+
+You can Register on the page and see the guest panel, and you can use these data and access the administrator panel user: adminsunset@gmail.com password Admin2023@
 
 Version 1.0.0 https://sunsetsandsdev.vercel.app/
 
