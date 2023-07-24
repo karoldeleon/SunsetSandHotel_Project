@@ -1,5 +1,13 @@
 import * as React from "react";
-import { Card, Typography, Button, Grid, TextField, Snackbar, Alert } from "@mui/material";
+import {
+  Card,
+  Typography,
+  Button,
+  Grid,
+  TextField,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -16,72 +24,60 @@ import {
 } from "../../redux/slices/bookingSlice";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 
 export default function SubTotal() {
   const dispatch = useDispatch();
   const { startDate, endDate, setDateRange } = React.useContext(DateContext);
-  const { child, adult, numberooms, nights } = useSelector((state) => state.booking);
+  const { child, adult, numberooms, nights } = useSelector(
+    (state) => state.booking
+  );
   const { price, room_number } = useSelector((state) => state.types.types);
 
-  const [hostData, setHostData] = React.useState({ hosts: [] })
+  const [hostData, setHostData] = React.useState({ hosts: [] });
   const [unavailableCheckIn, setUnavailableCheckIn] = React.useState([]);
   const [unavailableCheckOut, setUnavailableCheckOut] = React.useState([]);
   const [isSnackbarOpen, setIsSnackbarOpen] = React.useState(false);
-
-  // console.log('esot imprimiendo el estado local de dates', unavailableCheckIn)
-  // console.log('esot imprimiendo el estado local de dates', unavailableCheckOut)
 
   const secondDateMin = startDate ? startDate.add(1, "day") : null;
   const isSecondPickerDisabled = !startDate;
   const childNumber = +child;
   const adultNumber = +adult;
   const today = dayjs();
- 
 
   const reservationData = hostData.hosts.flatMap((host) => host.reservations);
 
-
   const checkDatesForBlock = () => {
-    const roomNumHost = reservationData.filter((num) => num.room_number === room_number)
-    // console.log('numero', roomNumHost)
-    // console.log('room number host es igual:', roomNumHost)
+    const roomNumHost = reservationData.filter(
+      (num) => num.room_number === room_number
+    );
+
     const reservationDates = roomNumHost.map((reservation) => {
       return {
         checkInDate: dayjs(reservation.room_check_in),
-        checkOutDate: dayjs(reservation.room_check_out)
+        checkOutDate: dayjs(reservation.room_check_out),
       };
     });
-    // console.log('fechas seteadas al formato:', reservationDates)
     const unavailableDatesStart = new Set();
     const unavailableDatesEnd = new Set();
-
 
     reservationDates.forEach((reservation) => {
       unavailableDatesStart.add(reservation.checkInDate);
       unavailableDatesEnd.add(reservation.checkOutDate);
-
-
-      // console.log('encontre las fechas', unavailableDatesStart)
-      // console.log('Fechas encontradas:', unavailableDatesEnd);
     });
 
-    const checkIn = []
-    const checkOut = []
+    const checkIn = [];
+    const checkOut = [];
 
-    unavailableDatesStart.forEach((date) => checkIn.push(date))
-    unavailableDatesEnd.forEach((date) => checkOut.push(date))
-
-    // console.log('soy el array in', checkIn)
-    // console.log('soy el array out', checkOut)
+    unavailableDatesStart.forEach((date) => checkIn.push(date));
+    unavailableDatesEnd.forEach((date) => checkOut.push(date));
 
     setUnavailableCheckIn(checkIn);
     setUnavailableCheckOut(checkOut);
-
-  }
+  };
 
   React.useEffect(() => {
-    checkDatesForBlock()
+    checkDatesForBlock();
   }, [startDate, endDate, hostData.hosts]);
 
   const fetchHostData = async () => {
@@ -90,10 +86,9 @@ export default function SubTotal() {
       const hostsData = response.data;
       setHostData(hostsData);
     } catch (error) {
-      console.error("Error al obtener los datos:", error)
+      console.error("Error al obtener los datos:", error);
     }
-  }
-
+  };
 
   const subTotal = price * nights * numberooms * (childNumber + adultNumber);
   const handleStartDateChange = (date) => {
@@ -117,19 +112,12 @@ export default function SubTotal() {
     }
   };
 
-  // const handleRoomsChange = (event) => {
-  //   const { value } = event.target;
-  //   if (value === "" || (Number(value) > 0 && !value.includes("-"))) {
-  //     dispatch(countRooms(value));
-  //   }
-  // };
-
   const handleTotaLClik = () => {
     dispatch(calculateTotal(subTotal));
   };
 
   React.useEffect(() => {
-    fetchHostData()
+    fetchHostData();
   }, []);
 
   React.useEffect(() => {
@@ -150,48 +138,51 @@ export default function SubTotal() {
   };
 
   const shouldDisableDateIn = (date) => {
-    
-    console.log('date dentro de function', date)
-    let find = false
+    let find = false;
     unavailableCheckIn.forEach((i) => {
-      if (i.$D === date.$D && i.$M + 1 === date.$M + 1 && i.$y === date.$y ) {
-        find = true
+      if (i.$D === date.$D && i.$M + 1 === date.$M + 1 && i.$y === date.$y) {
+        find = true;
       }
-    })
-    console.log('soy find', find)
-    return find
+    });
+    return find;
   };
-  
+
   const shouldDisableDateout = (date) => {
-    
-    console.log('date dentro de function', date)
-    let find = false
+    let find = false;
     unavailableCheckOut.forEach((i) => {
-      if (i.$D === date.$D && i.$M === date.$M + 1 && i.$y === date.$y ) {
-        find = true
+      if (i.$D === date.$D && i.$M === date.$M + 1 && i.$y === date.$y) {
+        find = true;
       }
-    })
-    console.log('soy find', find)
-    return find
+    });
+    return find;
   };
 
   return (
-    <div>
+    <Grid
+      sx={{
+        marginTop: {
+          xs: "-20px",
+          sm: "-1px",
+        },
+        maxWidth: {
+          xs: "100%",
+          sm: "100%",
+        },
+      }}
+    >
       <Snackbar
         open={isSnackbarOpen}
         autoHideDuration={5000}
         onClose={() => setIsSnackbarOpen(false)}
       >
-        <Alert severity="warning">
-          Selected dates are not available.
-        </Alert>
+        <Alert severity="warning">Selected dates are not available.</Alert>
       </Snackbar>
       <Card
         elevation={0}
         sx={{
           backgroundColor: "#9A98FE",
           alignContent: "center",
-          padding: "15px",
+          padding: "20px",
           margin: "20px",
           marginBottom: "-22px",
         }}
@@ -214,7 +205,7 @@ export default function SubTotal() {
         sx={{
           backgroundColor: "#F3F3F7",
           height: "auto",
-          padding: "15px",
+          padding: "25px",
           margin: "20px",
         }}
       >
@@ -232,7 +223,10 @@ export default function SubTotal() {
                 onChange={handleStartDateChange}
               />
             </DemoContainer>
-            <DemoContainer components={["DatePicker"]} sx={{}}>
+            <DemoContainer
+              components={["DatePicker"]}
+              sx={{ marginTop: "20px" }}
+            >
               <DatePicker
                 label="Check Out"
                 value={endDate}
@@ -243,7 +237,8 @@ export default function SubTotal() {
               />
             </DemoContainer>
 
-            <Grid container
+            <Grid
+              container
               justifyContent="center"
               spacing={2}
               marginTop={2}
@@ -275,19 +270,6 @@ export default function SubTotal() {
                   onChange={handleChildChange}
                 />
               </Grid>
-              {/* <Grid item xs={3} sm={3}>
-                <TextField
-                  id="subRooms"
-                  label="Rooms"
-                  type="number"
-                  value={numberooms}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant="standard"
-                  onChange={handleRoomsChange}
-                />
-              </Grid> */}
             </Grid>
           </LocalizationProvider>
         </Grid>
@@ -302,7 +284,7 @@ export default function SubTotal() {
                 fontWeight: "bold",
                 color: "#868688",
                 marginTop: "30px",
-                marginLeft: '45PX'
+                marginLeft: "45PX",
               }}
             >
               SubTotal
@@ -316,7 +298,7 @@ export default function SubTotal() {
                 color: "#C2C2C2",
                 marginTop: "10px",
                 marginLeft: "50px",
-                display: 'flex'
+                display: "flex",
               }}
             >
               {numberooms} Rooms
@@ -337,7 +319,7 @@ export default function SubTotal() {
                 fontWeight: "bold",
                 color: "#0400CB",
                 marginTop: "20px",
-                marginLeft: '30px'
+                marginLeft: "30px",
               }}
             >
               ${subTotal}
@@ -385,7 +367,9 @@ export default function SubTotal() {
                 fontSize: "10px",
                 fontWeight: "bold",
                 color: "#9A98FE",
-                margin: "20px",
+                marginLeft: "25px",
+                marginTop: "45px",
+                marginBottom: "45px",
               }}
             >
               Please read and understand our cancellation policy prior to
@@ -394,6 +378,6 @@ export default function SubTotal() {
           </Grid>
         </Grid>
       </Card>
-    </div>
+    </Grid>
   );
 }

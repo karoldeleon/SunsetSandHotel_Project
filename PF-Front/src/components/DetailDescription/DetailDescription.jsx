@@ -12,9 +12,16 @@ const DetailDescription = () => {
     <Card
       sx={{
         backgroundColor: "#EFEEFF",
-        height: "auto",
-        marginLeft: '20px',
-        marginBottom: '30px'
+        // marginBottom: '30px',
+        // width: "100%", 
+        marginLeft: {
+          xs: "10px",
+          sm: "20px",
+        },
+        maxWidth: {
+          xs: "95%",
+          sm : "96%",
+        }
       }}
     >
       <Grid container spacing={2} style={{ padding: "20px", marginLeft: '20px' }}>
@@ -25,6 +32,7 @@ const DetailDescription = () => {
               fontSize: "30px",
               fontWeight: "bold",
               color: "#868688",
+              marginLeft : "-20px"
             }}
           >
             {name}
@@ -36,6 +44,7 @@ const DetailDescription = () => {
               fontSize: "20px",
               color: "#868688",
               marginTop: "5px",
+              marginLeft : "-20px"
             }}
           >
             {room_type}
@@ -53,6 +62,10 @@ const DetailDescription = () => {
               fontSize: "35px",
               fontWeight: "bold",
               color: "#0400CB",
+              marginLeft: {
+                xs: "-20px",
+                sm: "-50px",
+              },
             }}
           >
             ${price}
@@ -64,7 +77,8 @@ const DetailDescription = () => {
               fontSize: "15px",
               fontWeight: "bold",
               color: "#9A98FE",
-              marginTop: "20px",
+              marginBottom : "5px",
+              marginLeft : "5px"
             }}
           >
             USD/NIGHT

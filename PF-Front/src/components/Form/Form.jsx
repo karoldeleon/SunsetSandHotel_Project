@@ -173,10 +173,16 @@ const FormComponent = () => {
   return (
     <Box
       sx={{
-        maxWidth: 500,
+        maxWidth: "95%",
         margin: "0 auto",
-        marginTop: "20px",
-        marginLeft: "170px",
+        marginTop: {
+          xs: "-20px",
+          sm: "20px",
+        },
+        marginLeft: {
+          xs: "10px",
+          sm: "20px",
+        },
         padding: "20px",
         paddingLeft: "25px",
         border: "1px solid #ccc",

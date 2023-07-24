@@ -12,11 +12,11 @@ export default function PayView() {
         backgroundColor: "#FAFAFF"
       }}
     >
-      <Grid item sm={12} md={6}>
-        <FormComponent />
+       <Grid item sm={12} md={6}>
+        <PayResume />
       </Grid>
       <Grid item sm={12} md={6}>
-        <PayResume />
+        <FormComponent />
       </Grid>
     </Grid>
 

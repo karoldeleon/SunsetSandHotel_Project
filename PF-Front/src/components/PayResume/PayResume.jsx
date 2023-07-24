@@ -28,25 +28,37 @@ export default function PayResume() {
   const { child, adult, numberooms, nights, total } = useSelector(
     (state) => state.booking
   );
-  const { name, price, image, room_type } = useSelector((state) => state.types.types);
+  const { name, price, image, room_type } = useSelector(
+    (state) => state.types.types
+  );
   const initial = startDate ? startDate.format("YYYY-MM-DD") : "";
   const finish = endDate ? endDate.format("YYYY-MM-DD") : "";
 
   return (
-  
     <Card
       elevation={0}
       sx={{
         backgroundColor: "#DFDFFF",
-        height: "auto",
+        height: {
+          xs: "95%",
+          sm: "500px",
+        },
+        maxWidth: "95%",
+        margin: "0 auto",
         marginTop: "20px",
-        marginBottom: "55px",
-        width: "450px",
+        marginLeft: {
+          xs: "10px",
+          sm: "20px",
+        },
+        padding: "20px",
+        paddingLeft: "25px",
+        border: "1px solid #ccc",
+        borderRadius: "5px",
       }}
     >
       <CardMedia component="img" height="200" image={image.bed} alt={name} />
 
-        <Grid container>
+      <Grid container>
         <Grid item xs={12} sm={6}>
           <Typography
             variant="h1"
@@ -56,14 +68,14 @@ export default function PayResume() {
               color: "#868688",
               marginTop: "17px",
               marginBottom: "10px",
-              marginLeft: '30px'
+              marginLeft: "30px",
             }}
           >
             {name}
           </Typography>
         </Grid>
 
-        <Grid item xs={12} sm={6} >
+        <Grid item xs={12} sm={6}>
           <Typography
             variant="h1"
             sx={{
@@ -83,25 +95,24 @@ export default function PayResume() {
               fontWeight: "bold",
               color: "#0400CB",
               marginLeft: "40px",
-              marginBottom: '15px'
+              marginBottom: "15px",
             }}
           >
-            USD,${total}
+            USD ${total}
           </Typography>
         </Grid>
       </Grid>
       <StyledDivider />
 
-
-      <Grid container sx={{ margin: "15px"}}>
-        <Grid item xs={12} sm={3}  >
+      <Grid container sx={{ margin: "15px" }}>
+        <Grid item xs={12} sm={3}>
           <Typography
             variant="h1"
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              fontWeight: 'bold',
-              marginTop: "20px", 
+              fontWeight: "bold",
+              marginTop: "20px",
               marginLeft: "20px",
             }}
           >
@@ -113,8 +124,8 @@ export default function PayResume() {
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              fontWeight: 'bold',
-              marginTop: "20px",        
+              fontWeight: "bold",
+              marginTop: "20px",
               marginLeft: "20px",
             }}
           >
@@ -125,7 +136,7 @@ export default function PayResume() {
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              fontWeight: 'bold',
+              fontWeight: "bold",
               marginTop: "20px",
               marginLeft: "20px",
             }}
@@ -137,7 +148,7 @@ export default function PayResume() {
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              fontWeight: 'bold',
+              fontWeight: "bold",
               marginTop: "20px",
               marginLeft: "20px",
             }}
@@ -146,24 +157,20 @@ export default function PayResume() {
           </Typography>
         </Grid>
 
-
-        <Grid item xs={12} sm={3} >
+        <Grid item xs={12} sm={3}>
           <Typography
             variant="h1"
             sx={{
               fontSize: "15px",
               color: "#868688",
-              marginTop: "20px",
-            }}
-          > ${price}
-          </Typography>
-
-          <Typography
-            variant="h1"
-            sx={{
-              fontSize: "15px",
-              color: "#868688",
-              marginTop: "20px",                       
+              marginTop: {
+                xs: "-95px",
+                sm: "60px",
+              },
+              marginLeft: {
+                xs: "130px",
+                sm: "-20px",
+              },
             }}
           >
             {initial}
@@ -173,8 +180,11 @@ export default function PayResume() {
             sx={{
               fontSize: "15px",
               color: "#868688",
-              marginTop: "20px", 
-                 
+              marginTop: "20px",
+              marginLeft: {
+                xs: "130px",
+                sm: "-20px",
+              },
             }}
           >
             {finish}
@@ -184,14 +194,34 @@ export default function PayResume() {
             sx={{
               fontSize: "15px",
               color: "#868688",
-              marginTop: "20px", 
-                
+              marginTop: "20px",
+              marginLeft: {
+                xs: "130px",
+                sm: "-20px",
+              },
             }}
           >
             {room_type}
           </Typography>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#868688",
+              marginTop: {
+                xs: "-127px",
+                sm: "-130px",
+              },
+              marginLeft: {
+                xs: "130px",
+                sm: "-20px",
+              },
+            }}
+          >
+            {" "}
+            ${price}
+          </Typography>
         </Grid>
-
 
         <Grid item xs={6} sm={4}>
           <Typography
@@ -199,8 +229,8 @@ export default function PayResume() {
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              fontWeight: 'bold',
-              marginTop: "20px",           
+              fontWeight: "bold",
+              marginTop: "20px",
             }}
           >
             Total of Rooms:
@@ -210,18 +240,18 @@ export default function PayResume() {
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              fontWeight: 'bold',
+              fontWeight: "bold",
               marginTop: "20px",
             }}
           >
             Total of Nights:
-          </Typography>       
+          </Typography>
           <Typography
             variant="h1"
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              fontWeight: 'bold',
+              fontWeight: "bold",
               marginTop: "20px",
             }}
           >
@@ -233,15 +263,13 @@ export default function PayResume() {
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              fontWeight: 'bold',
+              fontWeight: "bold",
               marginTop: "20px",
             }}
           >
             Total of childs:
           </Typography>
-
         </Grid>
-
 
         <Grid item xs={6} sm={2}>
           <Typography
@@ -282,16 +310,13 @@ export default function PayResume() {
               fontSize: "15px",
               color: "#868688",
               marginTop: "20px",
-              marginBottom: '30px'
+              marginBottom: "30px",
             }}
           >
             {child}
           </Typography>
-
-
         </Grid>
       </Grid>
     </Card>
-    
   );
 }

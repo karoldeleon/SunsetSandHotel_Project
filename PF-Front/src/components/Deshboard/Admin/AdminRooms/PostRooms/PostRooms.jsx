@@ -153,7 +153,7 @@ const PostRooms = () => {
 
             setOpenAlert(true);
         } catch (error) {
-            console.log("Error al realizar la solicitud:", error);
+            alert("Error Creating The Room: " + error.response.data[0].msg);
         }
     };
 

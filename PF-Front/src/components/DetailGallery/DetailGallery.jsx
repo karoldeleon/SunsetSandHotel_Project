@@ -6,8 +6,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 export default function DetailGallery() {
-
-  const room = useSelector((state) => state.types.types.image)
+  const room = useSelector((state) => state.types.types.image);
   const images = room && room ? room : {};
   const imageKeys = Object.keys(images);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -31,8 +30,21 @@ export default function DetailGallery() {
     <Grid
       container
       sx={{
-        margin: "20px",
+        marginTop: {
+          xs: "30px",
+          sm: "20px",
+        },
+        marginLeft: {
+          xs: "10px",
+          sm: "20px",
+        },
+        marginBottom: "15px",
+        maxWidth: {
+          xs: "96%",
+          sm : "96%",
+        }
       }}
+      
     >
       <Grid item xs={12} sx={{ position: "relative" }}>
         <CardMedia
@@ -40,6 +52,7 @@ export default function DetailGallery() {
           height="400"
           image={selectedImage}
           alt="Selected Image"
+          sx={{ borderRadius: "7px" }}
         />
         <IconButton
           onClick={() => handleImageClick("prev")}

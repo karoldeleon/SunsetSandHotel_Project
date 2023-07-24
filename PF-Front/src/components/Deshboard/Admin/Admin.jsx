@@ -36,6 +36,7 @@ const Admin = () => {
                         color: "#0400CB",
                         textAlign: "Start",
                         margin: "20px",
+                        marginLeft : "1px"
                     }}>
                     DASHBOARD
                 </Typography>

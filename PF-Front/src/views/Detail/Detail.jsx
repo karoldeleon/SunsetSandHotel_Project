@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { fetchRoomsType } from "../../redux/actions/detailAction";
 import { Box, Grid } from "@mui/material";
 import DetailGallery from "../../components/DetailGallery/DetailGallery";
@@ -8,7 +8,6 @@ import LinearColor from "../../components/Loading/Linearcolor";
 import SubTotal from "../../components/SubTotal/SubTotal";
 import { setLoading } from "../../redux/slices/LodingSlice";
 import DetailDescription from "../../components/DetailDescription/DetailDescription";
-import Reviews from "../../components/Reviews/Reviews";
 
 export default function Detail() {
   const { room_number } = useParams();
@@ -32,7 +31,7 @@ export default function Detail() {
   }
 
   return (
-    <Box sx={{ flexGrow: 1, backgroundColor: "#FAFAFF" }}>
+    <Box sx={{ flexGrow: 1, backgroundColor: "#FAFAFF", marginTop: "-45px" }}>
       <Grid container spacing={4}>
         <Grid item xs={0} md={8}>
           <DetailGallery />

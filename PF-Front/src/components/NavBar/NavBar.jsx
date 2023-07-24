@@ -41,6 +41,7 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const [openDrawer, setOpenDrawer] = useState(false);
   const user = useSelector((state) => state.loginStatus.user);
+  const datahotel = useSelector((state) => state.hotel);
 
   useEffect(() => {}, [user]);
 
@@ -80,7 +81,7 @@ const NavBar = () => {
           <NavLinkStyled to="/home">
             <div style={{ display: "flex", alignItems: "center" }}>
               <Logo
-                src="https://i.ibb.co/fFXPtrC/logo-removebg-preview.png"
+                src={datahotel.logo}
                 alt="logo"
               />
             </div>

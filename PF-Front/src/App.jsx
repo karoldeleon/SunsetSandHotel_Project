@@ -13,18 +13,16 @@ import MyAccount from "./views/MyAccount/MyAccount";
 import { useEffect } from "react";
 import { setUser } from "./redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import axios from 'axios';
+import axios from "axios";
 import Success from "./components/PaymentsComponents/Sucess";
 import Rejected from "./components/PaymentsComponents/Rejected";
+import { fetchDataHotel } from "./redux/slices/hotelSlice";
 axios.defaults.baseURL = "https://sunsetsandsdev.adaptable.app";
 // axios.defaults.baseURL = "http://localhost:3001";
 
 const App = () => {
-  
   const dispatch = useDispatch();
   const location = useLocation();
-  const path = location.pathname;
-  const rooms = useSelector((state) => state.rooms);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -33,6 +31,22 @@ const App = () => {
     }
   }, [dispatch]);
 
+  useEffect(() => {
+    const fetchDataFromApi = async () => {
+      try {
+        const response = await axios.get(
+          "https://sunsetsandsdev.adaptable.app/hotel"
+        );
+        const responseData = response.data;
+        const { name, images } = responseData[0];
+        const logo = images.logo;
+        dispatch(fetchDataHotel({ name, logo }));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchDataFromApi();
+  }, []);
   return (
     <>
       <section>
@@ -45,10 +59,10 @@ const App = () => {
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/ResetPassword" element={<ResetPassword />} />
-          <Route path="/managerBooking" element={<ManagerBooking />} /> 
-          <Route path="/myaccount" element={<MyAccount />} /> 
-          <Route path="/success" element={<Success />} /> 
-          <Route path="/rejected" element={<Rejected />} /> 
+          <Route path="/managerBooking" element={<ManagerBooking />} />
+          <Route path="/myaccount" element={<MyAccount />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/rejected" element={<Rejected />} />
           <Route path="*" element={<Error />} /> *
         </Routes>
       </section>
